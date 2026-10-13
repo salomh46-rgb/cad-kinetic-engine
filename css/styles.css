@@ -1,0 +1,606 @@
+/* ==========================================================================
+   CAD KINETIC ENGINE — 2026 ELITE STYLING
+   Obsidian Darkness (#06070a), Neon CAD Sapphire (#0ea5e9, #38bdf8),
+   Precision Technical Fonts, Glassmorphism, and Cinematic Overlays.
+   ========================================================================== */
+
+:root {
+  --bg-deep: #06070a;
+  --bg-surface: #0c0f17;
+  --bg-surface-elevated: #131722;
+  --cad-cyan: #0ea5e9;
+  --cad-cyan-glow: rgba(14, 165, 233, 0.35);
+  --cad-grid-line: rgba(255, 255, 255, 0.05);
+  --cad-accent-amber: #f59e0b;
+  --cad-laser: rgba(14, 165, 233, 0.7);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(14, 165, 233, 0.3);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lenis Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--bg-deep);
+  line-height: 1.6;
+  position: relative;
+  cursor: default;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CAD CROSSHAIR & LASER GRID SYSTEM
+   ───────────────────────────────────────────────────────────────────────── */
+.cad-viewport-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.cad-laser-x {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(14, 165, 233, 0.15) 20%, 
+    rgba(14, 165, 233, 0.8) 50%, 
+    rgba(14, 165, 233, 0.15) 80%, 
+    transparent 100%);
+  transform: translateY(-50px);
+  will-change: transform;
+}
+
+.cad-laser-y {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(14, 165, 233, 0.15) 20%, 
+    rgba(14, 165, 233, 0.8) 50%, 
+    rgba(14, 165, 233, 0.15) 80%, 
+    transparent 100%);
+  transform: translateX(-50px);
+  will-change: transform;
+}
+
+.cad-cursor-reticle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  margin-left: -16px;
+  border: 1px solid var(--cad-cyan);
+  border-radius: 4px;
+  pointer-events: none;
+  transform: translate(-100px, -100px);
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px var(--cad-cyan-glow);
+}
+
+.cad-cursor-reticle::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--cad-cyan);
+  border-radius: 50%;
+}
+
+.cad-hud-coordinates {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cad-cyan);
+  background: rgba(6, 7, 10, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 4px 8px;
+  border: 1px solid var(--border-glow);
+  border-radius: 4px;
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translate(-100px, -100px);
+  margin-left: 24px;
+  margin-top: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.cad-grid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BARBA.JS PAGE TRANSITION CURTAIN
+   ───────────────────────────────────────────────────────────────────────── */
+.transition-curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #020305;
+  z-index: 10000;
+  transform: translateY(100%);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.transition-curtain-logo {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--cad-cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.curtain-pulse {
+  width: 10px;
+  height: 10px;
+  background: var(--cad-cyan);
+  border-radius: 50%;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.4; }
+  100% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px var(--cad-cyan); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   HEADER & NAVIGATION
+   ───────────────────────────────────────────────────────────────────────── */
+.cad-nav {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  height: 60px;
+  background: rgba(12, 15, 23, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.cad-logo {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 1px;
+}
+
+.cad-logo-badge {
+  background: rgba(14, 165, 233, 0.15);
+  color: var(--cad-cyan);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.cad-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.cad-nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.cad-nav-link:hover, .cad-nav-link.active {
+  color: var(--cad-cyan);
+}
+
+.cad-btn-cta {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+  transition: all 0.2s ease;
+}
+
+.cad-btn-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 25px rgba(14, 165, 233, 0.5);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   HERO SECTION & KINETIC TYPOGRAPHY
+   ───────────────────────────────────────────────────────────────────────── */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 140px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cad-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cad-cyan);
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid var(--border-glow);
+  padding: 6px 14px;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
+}
+
+.hero-title {
+  font-size: clamp(40px, 7vw, 84px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  max-width: 1000px;
+  margin-bottom: 28px;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-accent {
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 40px rgba(14, 165, 233, 0.4);
+}
+
+.hero-subtitle {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+/* Kinetic Line / Word Split Wrapper */
+.split-line {
+  overflow: hidden;
+  display: block;
+}
+
+.split-line-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform, opacity;
+}
+
+.hero-action-group {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--cad-cyan);
+  color: var(--cad-cyan);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CAD INTERACTIVE WORKBENCH PREVIEW (HERO MOCKUP)
+   ───────────────────────────────────────────────────────────────────────── */
+.cad-workbench {
+  width: 100%;
+  max-width: 1100px;
+  height: 520px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  margin-top: 60px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 0 40px rgba(14, 165, 233, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.workbench-titlebar {
+  height: 38px;
+  background: #090c13;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.workbench-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.workbench-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #1e293b;
+}
+
+.workbench-viewport {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 3D Wireframe Cube Mockup */
+.cad-wireframe-cube {
+  width: 180px;
+  height: 180px;
+  border: 1px dashed var(--cad-cyan);
+  position: relative;
+  transform: rotateX(25deg) rotateY(35deg);
+  transform-style: preserve-3d;
+  animation: cadRotate 18s linear infinite;
+  box-shadow: inset 0 0 30px rgba(14, 165, 233, 0.15);
+}
+
+.cad-wireframe-cube::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  transform: translateZ(50px);
+}
+
+@keyframes cadRotate {
+  0% { transform: rotateX(25deg) rotateY(0deg); }
+  100% { transform: rotateX(25deg) rotateY(360deg); }
+}
+
+.viewport-cross-center {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-left: 1px solid var(--cad-cyan);
+  border-top: 1px solid var(--cad-cyan);
+}
+
+.viewport-info-panel {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(6, 7, 10, 0.8);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cad-cyan);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FEATURES SECTION WITH MOUSE SPOTLIGHT CARDS
+   ───────────────────────────────────────────────────────────────────────── */
+.section-features {
+  padding: 120px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  color: var(--cad-cyan);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 36px 30px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--cad-cyan);
+  transform: translateY(-4px);
+}
+
+/* Card Mouse Spotlight Radial Effect */
+.card-spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(14, 165, 233, 0.12), transparent 80%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover .card-spotlight {
+  opacity: 1;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: var(--cad-cyan);
+}
+
+.feature-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.feature-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────────────────────────── */
+.cad-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 60px 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+@media (max-width: 768px) {
+  .cad-nav {
+    padding: 0 16px;
+  }
+  .cad-nav-links {
+    display: none;
+  }
+  .hero-section {
+    padding-top: 110px;
+  }
+  .cad-workbench {
+    height: 360px;
+  }
+}

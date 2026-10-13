@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAD Kinetic Engine | Precision Laser Grid & SplitText Transitions</title>
+  <meta name="description" content="Production-ready 2026 Elite UI engine featuring CAD Crosshair physics, Lenis Smooth Scroll, GSAP Kinetic Typography, and Barba.js transitions.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Vendor Libraries -->
+  <script src="https://unpkg.com/lenis@1.1.5/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@barba/core@2.9.7/dist/barba.umd.js"></script>
+</head>
+<body>
+
+  <!-- Transition Curtain for Barba.js -->
+  <div class="transition-curtain">
+    <div class="transition-curtain-logo">
+      <div class="curtain-pulse"></div>
+      CAD.ENGINE // LOADING
+    </div>
+  </div>
+
+  <!-- Global Navigation Header -->
+  <header class="cad-nav">
+    <a href="index.html" class="cad-logo">
+      <span>HERON.CAD</span>
+      <span class="cad-logo-badge">v1.0 LTS</span>
+    </a>
+    <nav class="cad-nav-links">
+      <a href="index.html" class="cad-nav-link active">Bosh Sahifa</a>
+      <a href="architecture.html" class="cad-nav-link">Arxitektura & Barba</a>
+      <a href="#features" class="cad-nav-link">Texnologiyalar</a>
+    </nav>
+    <a href="architecture.html" class="cad-btn-cta">Live Demo Ko'rish →</a>
+  </header>
+
+  <!-- Barba.js Wrapper -->
+  <div data-barba="wrapper">
+    <main data-barba="container" data-barba-namespace="home">
+
+      <!-- ─── HERO SECTION ─── -->
+      <section class="hero-section">
+        <div class="hero-cad-badge">
+          <span>●</span> PRECISION WORKSPACE // 2026 KINETIC ENGINE
+        </div>
+
+        <h1 class="hero-title">
+          <span class="text-gradient" data-split-reveal>Dizayn vositalaringiz ichida ishlovchi</span>
+          <span class="text-accent" data-split-reveal>Avtonom AI Dvigateli.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          CAD crosshair lazer fizikasi, Lenis inersiyali silliq skroll va GSAP SplitText kinetik tipografiyasi — barchasi bitta professional shablonda.
+        </p>
+
+        <div class="hero-action-group">
+          <a href="architecture.html" class="cad-btn-cta">Arxitektura & Sahifa O'tishi (Barba.js)</a>
+          <a href="#features" class="btn-secondary">Texnik Xususiyatlar [HUD]</a>
+        </div>
+
+        <!-- CAD Workbench 3D Simulation Box -->
+        <div class="cad-workbench">
+          <div class="workbench-titlebar">
+            <div class="workbench-dots">
+              <div class="workbench-dot" style="background:#ef4444;"></div>
+              <div class="workbench-dot" style="background:#f59e0b;"></div>
+              <div class="workbench-dot" style="background:#10b981;"></div>
+            </div>
+            <span>WORKSPACE // SOLIDWORKS & FUSION SIMULATOR</span>
+            <span>AXIS: X-Y-Z // 60 FPS</span>
+          </div>
+
+          <div class="workbench-viewport">
+            <div class="viewport-cross-center"></div>
+            <div class="cad-wireframe-cube"></div>
+
+            <div class="viewport-info-panel">
+              <div>TARGET: 3D MESH TOPOLOGY</div>
+              <div>STATUS: ZERO TOLERANCE ERROR</div>
+              <div>INSPECTION: REA RECONSTRUCTED</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── FEATURES SECTION ─── -->
+      <section class="section-features" id="features">
+        <div class="section-header">
+          <span class="section-tag">// MODULLAR TUZILISHI</span>
+          <h2 class="section-title">Ushbu Dvigatel Qanday Yaratildi?</h2>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="card-spotlight"></div>
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+            </div>
+            <h3 class="feature-title">CAD Crosshair Lazer Fizikasi</h3>
+            <p class="feature-desc">
+              Sichqoncha kursoriga 0.18 Lerp inersiya bilan ergashuvchi X va Y lazer chiziqlari, to'rtburchak reticle nishoni va real vaqtdagi X/Y millimetrik koordinata HUD ko'rsatkichi.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-spotlight"></div>
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+            </div>
+            <h3 class="feature-title">Lenis 1.1.5 Inersiyali Skroll</h3>
+            <p class="feature-desc">
+              Apple va Linear standartidagi ultra-silliq inersiyali skroll. GSAP ScrollTrigger bilan mukammal sinxronlashtirilgan bo'lib, har qanday qurilmada 60-120 FPS beradi.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-spotlight"></div>
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
+            </div>
+            <h3 class="feature-title">GSAP SplitText Tipografiyasi</h3>
+            <p class="feature-desc">
+              Matnlarning har bir so'zi va satrini maskalangan konteyner ichidan staggered (bosqichma-bosqich) ravishda chiqaruvchi kinemotografik animatsiya tizimi.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-spotlight"></div>
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </div>
+            <h3 class="feature-title">Barba.js SPA Sahifalar O'tishi</h3>
+            <p class="feature-desc">
+              Sahifalar o'rtasida o'tganda brauzer qayta yuklanmasdan, zamonaviy qora parda (Curtain Wipe) orqali keshlanib, zudlik bilan ochiladi.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-spotlight"></div>
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            </div>
+            <h3 class="feature-title">Obsidian & Spotlight Fizikasi</h3>
+            <p class="feature-desc">
+              Chuqur qora obsidian (#06070a), kursor bo'yicha dinamik yorituvchi Spotlight radiusi va neon sapfir aksentlar.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-spotlight"></div>
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <h3 class="feature-title">Modulli 1-Klik Integratsiya</h3>
+            <p class="feature-desc">
+              Har qanday kelajakdagi SaaS yoki portfolio loyihangizga atigi 3 ta faylni (`js/cad-crosshair.js`, `kinetic-scroll.js`, `styles.css`) import qilib ishlatish imkoniyati.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── FOOTER ─── -->
+      <footer class="cad-footer">
+        <p>CAD KINETIC ENGINE v1.0.0 LTS // JAVOHIRBEK ASQAROV (JASPER) ARCHITECTURE // REA RE-ENGINEERED</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Master Application Script -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
