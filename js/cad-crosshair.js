@@ -13,9 +13,10 @@ export class CadCrosshairEngine {
     this.options = {
       container: options.container || document.body,
       showCoordinates: options.showCoordinates ?? true,
+      enableCanvasGrid: options.enableCanvasGrid ?? false,
       lerpFactor: options.lerpFactor ?? 0.18,
       gridStep: options.gridStep ?? 40,
-      accentColor: options.accentColor || '#0ea5e9',
+      accentColor: options.accentColor || '#f15534',
       ...options
     };
 
@@ -24,7 +25,9 @@ export class CadCrosshairEngine {
     this.rafId = null;
 
     this.initDOM();
-    this.initCanvasGrid();
+    if (this.options.enableCanvasGrid) {
+      this.initCanvasGrid();
+    }
     this.bindEvents();
     this.render();
   }
