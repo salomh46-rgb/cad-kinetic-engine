@@ -2249,3 +2249,39 @@
       }
     }
   }
+
+
+/* CRITICAL FIX: Eliminate preloader obstruction so page renders immediately */
+.loading-main,
+.loading-wrap,
+.loading-content,
+.loading-bg,
+.loading-ruler {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+/* Ensure body and content are 100% visible */
+body {
+  overflow: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.main, .body-inner, .home-hero-wrap, .home-hero {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Ensure building elevation drawing is centered and sharp */
+.home-hero-img-inner img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
